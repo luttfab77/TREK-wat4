@@ -1,7 +1,8 @@
 // Harness smoke: boots the NestApp against an isolated in-memory DB and checks that routing and the JWT-cookie guard work.
 // Template for the real integration tests (Supertest against the app).
-import request from 'supertest';
 import { createTestApp, type TestApp } from '../helpers/app';
+
+import request from 'supertest';
 
 jest.mock('../../src/db/database', () => require('../helpers/db-singleton').dbMock);
 jest.mock('../../src/config', () => require('../helpers/config-mock').CONFIG_MOCK);

@@ -11,8 +11,7 @@ const swcOptions = {
 };
 
 // MCP SDK ships an exports map Jest can't resolve, so point at the CJS dist files.
-const mcp = (p) =>
-  `<rootDir>/../node_modules/@modelcontextprotocol/sdk/dist/cjs/${p}`;
+const mcp = (p) => `<rootDir>/../node_modules/@modelcontextprotocol/sdk/dist/cjs/${p}`;
 
 /** @type {import('jest').Config} */
 module.exports = {
