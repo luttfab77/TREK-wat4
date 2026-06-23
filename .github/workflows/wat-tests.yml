@@ -9,11 +9,11 @@ on:
   pull_request:
     branches: [main, dev]
     paths:
-      - 'server/**'
-      - 'client/**'
-      - 'shared/**'
-      - 'loadtests/**'
-      - '.github/workflows/wat-tests.yml'
+      - "server/**"
+      - "client/**"
+      - "shared/**"
+      - "loadtests/**"
+      - ".github/workflows/wat-tests.yml"
 
 jobs:
   jest-server:

@@ -6,9 +6,10 @@
 // It only imports schema + migrations (which take a db param), not the upstream
 // tests/helpers/test-db, because that pulls in app code that requires the mocked
 // db module and would re-enter this file before its exports exist.
-import Database from 'better-sqlite3';
-import { createTables } from '../../src/db/schema';
 import { runMigrations } from '../../src/db/migrations';
+import { createTables } from '../../src/db/schema';
+
+import Database from 'better-sqlite3';
 
 const DEFAULT_CATEGORIES = [
   { name: 'Hotel', color: '#3b82f6', icon: '🏨' },
@@ -24,13 +25,69 @@ const DEFAULT_CATEGORIES = [
 ];
 
 const DEFAULT_ADDONS = [
-  { id: 'packing', name: 'Packing List', description: 'Pack your bags', type: 'trip', icon: 'ListChecks', enabled: 1, sort_order: 0 },
-  { id: 'budget', name: 'Costs', description: 'Track and split trip expenses', type: 'trip', icon: 'Wallet', enabled: 1, sort_order: 1 },
-  { id: 'documents', name: 'Documents', description: 'Manage travel documents', type: 'trip', icon: 'FileText', enabled: 1, sort_order: 2 },
-  { id: 'vacay', name: 'Vacay', description: 'Vacation day planner', type: 'global', icon: 'CalendarDays', enabled: 1, sort_order: 10 },
-  { id: 'atlas', name: 'Atlas', description: 'Visited countries map', type: 'global', icon: 'Globe', enabled: 1, sort_order: 11 },
-  { id: 'mcp', name: 'MCP', description: 'AI assistant integration', type: 'integration', icon: 'Terminal', enabled: 0, sort_order: 12 },
-  { id: 'collab', name: 'Collab', description: 'Notes, polls, live chat', type: 'trip', icon: 'Users', enabled: 1, sort_order: 6 },
+  {
+    id: 'packing',
+    name: 'Packing List',
+    description: 'Pack your bags',
+    type: 'trip',
+    icon: 'ListChecks',
+    enabled: 1,
+    sort_order: 0,
+  },
+  {
+    id: 'budget',
+    name: 'Costs',
+    description: 'Track and split trip expenses',
+    type: 'trip',
+    icon: 'Wallet',
+    enabled: 1,
+    sort_order: 1,
+  },
+  {
+    id: 'documents',
+    name: 'Documents',
+    description: 'Manage travel documents',
+    type: 'trip',
+    icon: 'FileText',
+    enabled: 1,
+    sort_order: 2,
+  },
+  {
+    id: 'vacay',
+    name: 'Vacay',
+    description: 'Vacation day planner',
+    type: 'global',
+    icon: 'CalendarDays',
+    enabled: 1,
+    sort_order: 10,
+  },
+  {
+    id: 'atlas',
+    name: 'Atlas',
+    description: 'Visited countries map',
+    type: 'global',
+    icon: 'Globe',
+    enabled: 1,
+    sort_order: 11,
+  },
+  {
+    id: 'mcp',
+    name: 'MCP',
+    description: 'AI assistant integration',
+    type: 'integration',
+    icon: 'Terminal',
+    enabled: 0,
+    sort_order: 12,
+  },
+  {
+    id: 'collab',
+    name: 'Collab',
+    description: 'Notes, polls, live chat',
+    type: 'trip',
+    icon: 'Users',
+    enabled: 1,
+    sort_order: 6,
+  },
 ];
 
 function seedDefaults(d: Database.Database): void {
@@ -38,7 +95,9 @@ function seedDefaults(d: Database.Database): void {
   for (const c of DEFAULT_CATEGORIES) {
     insertCat.run(c.name, c.color, c.icon);
   }
-  const insertAddon = d.prepare('INSERT OR IGNORE INTO addons (id, name, description, type, icon, enabled, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)');
+  const insertAddon = d.prepare(
+    'INSERT OR IGNORE INTO addons (id, name, description, type, icon, enabled, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)',
+  );
   for (const a of DEFAULT_ADDONS) {
     insertAddon.run(a.id, a.name, a.description, a.type, a.icon, a.enabled, a.sort_order);
   }
