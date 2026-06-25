@@ -8,4 +8,5 @@ playwright/.cache/
 cypress/videos/
 cypress/screenshots/
 cypress/downloads/
+cypress/reports/
 coverage-wat/
